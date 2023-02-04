@@ -34,7 +34,7 @@ The C-MAPSS dataset is widely used to evaluate the performance of models. It is 
 The sensor selection of FD001 and FD003 subsets are different  from that of the FD002 and FD004 subsets. In FD001 and FD003 subsets, there are twenty-one sensors labeled with the indices of $(1,\cdots, 21)$ and three operating settings of s1,s2, and s3.
 The twenty-one sensors and operating settings in FD001 and FD004 subset are visualized in Fig. 1. The streaming data in sensors and settings with the ascending and descending trends in FD001 and FD003 ( see Table. 2) are used as inputs for the TDDN model. All operating settings and sensor measurements are used for the RUL prediction of FD002 and FD004 subsets.
 
-<img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20230203114211407.png" alt="image-20230203114211407" style="zoom: 70%;" />
+<img src="https://raw.githubusercontent.com/hilbert-qyw/Machine-Remaining-Useful-Life-Prediction-Using-Temporal-Deep-Degradation-Network/main/images/visualization_of_sensor_data.png?token=GHSAT0AAAAAAB6EOLSDRNHALCZ5YYSNGST4Y66D7UQ" alt="image-20230203114211407" style="zoom: 70%;" />
 
 <center>Fig. 1 . The visualization of the streaming sensor data and settings in FD001 and FD004 subsets<center>
    <center>Table. 2 .  The trend categories of the sensors and operating settings in FD001 and FD003<center> 
@@ -49,7 +49,7 @@ The twenty-one sensors and operating settings in FD001 and FD004 subset are visu
 
 The overall structure of the TDDN model is shown in Fig. 2. First, the data transformation module has three components and is used to generate degradation-related derived data. The identity mapping, down-sampling, and exponential moving averages are arranged in parallel to help extract degradation patterns from the streaming sensor data individually. Next, the DSCN modules are separately utilized for each degradation-related derived data to extract abstract features via multiple separable convolutional blocks (SCB) and adaptive pooling. Finally, the attention mechanism module is employed to assign higher weights to more important abstract feature components. The output of the attention mechanism is fed into feed-forward neural network (FNN) layers to predict RUL. In addition, a hyperband algorithm is introduced to automatically search the optimal hyperparameters of the TDDN model to improve RUL prediction performance<sup>[6]</sup>. 
 
-<img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20230203115121989.png" alt="image-20230203115121989" style="zoom:80%;" />
+<img src="https://raw.githubusercontent.com/hilbert-qyw/Machine-Remaining-Useful-Life-Prediction-Using-Temporal-Deep-Degradation-Network/main/images/TDDN_model.png?token=GHSAT0AAAAAAB6EOLSC7YGZ5XOFDKW46YL4Y66EAHA" />
 
 <center>Fig. 2 . Architecture of the proposed TDDN for RUL prediction<center>
 
@@ -57,7 +57,7 @@ The overall structure of the TDDN model is shown in Fig. 2. First, the data tran
 
 A standard CNN generally comprises convolutional layers, pooling layers, and a fully connected layer.In convolutional layers, each kernel attaches equal importance to intra-sensor temporal features and inter-sensor spatial features, which ignores the discrepancies of features in different physical sensor data. In addition, the standard convolution always leads to high computational complexity and memory budget with the increasing number of network layers. To deal with those problems, we adopt the DSCN to enhance the feature capability of the TDDN model, in which the SCB is introduced to replace the standard convolutional layer<sup>[7]</sup>. As shown in Fig. 3, the DSCN contains three main structures: SCB, residual connection, and adaptive pooling.
 
-<img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20230203115403367.png" alt="image-20230203115403367" style="zoom:67%;" />
+<img src="https://raw.githubusercontent.com/hilbert-qyw/Machine-Remaining-Useful-Life-Prediction-Using-Temporal-Deep-Degradation-Network/main/images/DSCN.png?token=GHSAT0AAAAAAB6EOLSC2BBG4766XR2MJEYAY66D7BQ" alt="image-20230203115403367" style="zoom:67%;" />
 
 <center>Fig. 3 . The illustration of DSCN for abstract feature extraction<center>
 
@@ -65,7 +65,7 @@ A standard CNN generally comprises convolutional layers, pooling layers, and a f
 
 The attention mechanism is adopted to calculate the degradation attention weights to encode the dynamic degradation patterns<sup>[8]</sup>. The attention mechanism generates degradation attention weights according to the similarities between abstract feature components and the degradation stages. The overall structure of the attention mechanism is shown in Fig. 4.
 
-<img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20230203115608549.png" alt="image-20230203115608549" style="zoom:67%;" />
+<img src="[C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20230203115608549.png](https://raw.githubusercontent.com/hilbert-qyw/Machine-Remaining-Useful-Life-Prediction-Using-Temporal-Deep-Degradation-Network/main/images/AM.png?token=GHSAT0AAAAAAB6EOLSC2V5YEDRZQKDFOBOEY66EA2A)" alt="image-20230203115608549" style="zoom:67%;" />
 
 <center>Fig. 4 . The illustration of the overall structure of attention mechanism<center>
 ## Requirements
@@ -103,21 +103,21 @@ python TDRL_model_training.py --file_number 1 --max_life 1 --time 1 --norm symme
 
 The predicted RUL results of test engines in four subsets are shown in Fig. 5.
 
-<img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20230203115957494.png" alt="image-20230203115957494" style="zoom:67%;" />
+<img src="https://raw.githubusercontent.com/hilbert-qyw/Machine-Remaining-Useful-Life-Prediction-Using-Temporal-Deep-Degradation-Network/main/images/RUL_prediction.png?token=GHSAT0AAAAAAB6EOLSDQAC57P4D7IVPW3JYY66EBFA" alt="image-20230203115957494" style="zoom:67%;" />
 
 <center>Fig. 5 . RUL prediction results of four subsets with the TDDN model<center>
 
 One representative engine is randomly selected to visualize the prediction performance in four subsets of FD001, FD002, FD003, and FD004. Fig. 6 shows the RUL prediction results and the corresponding absolute errors of four subsets with TDDN, DCNN, LSTM and CNN-LSTM models. It is observed that the prediction results of four models evolve around the actual RUL curve, among which the TDDN model has the smallest deviation range. Furthermore, there are some abnormal fluctuations in the degradation stage in the other three models' prediction results, while TDDN model prediction results always fluctuate within small errors. These results suggest that the TDDN model is effective to capture the trend of the degradation development and has outstanding prediction performance under various operating conditions.
 
-<img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20230203120134378.png" alt="image-20230203120134378" style="zoom:67%;" />
+<img src="https://raw.githubusercontent.com/hilbert-qyw/Machine-Remaining-Useful-Life-Prediction-Using-Temporal-Deep-Degradation-Network/main/images/FD001.png?token=GHSAT0AAAAAAB6EOLSCD37EV3563A4TOTYKY66EBQA" alt="image-20230203120134378" style="zoom:67%;" />
 
-<img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20230203120152014.png" alt="image-20230203120152014" style="zoom:67%;" />
+<img src="https://raw.githubusercontent.com/hilbert-qyw/Machine-Remaining-Useful-Life-Prediction-Using-Temporal-Deep-Degradation-Network/main/images/FD002.png?token=GHSAT0AAAAAAB6EOLSCAKDQRLR4VWVBGZL6Y66EBRQ" alt="image-20230203120152014" style="zoom:67%;" />
 
 
 
-<img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20230203120224089.png" alt="image-20230203120224089" style="zoom:67%;" />
+<img src="https://raw.githubusercontent.com/hilbert-qyw/Machine-Remaining-Useful-Life-Prediction-Using-Temporal-Deep-Degradation-Network/main/images/FD003.png?token=GHSAT0AAAAAAB6EOLSDURYD7U5DAWF6UHY6Y66EBSA" alt="image-20230203120224089" style="zoom:67%;" />
 
-<img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20230203120246658.png" alt="image-20230203120246658" style="zoom:67%;" />
+<img src="https://raw.githubusercontent.com/hilbert-qyw/Machine-Remaining-Useful-Life-Prediction-Using-Temporal-Deep-Degradation-Network/main/images/FD004.png?token=GHSAT0AAAAAAB6EOLSC4YJ4YYQFX7TWAZOQY66EBTA" alt="image-20230203120246658" style="zoom:67%;" />
 
 <center>Fig. 6 .  The predicted RUL and prediction errors on different test datasets<center>
 
