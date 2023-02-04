@@ -65,7 +65,7 @@ A standard CNN generally comprises convolutional layers, pooling layers, and a f
 
 The attention mechanism is adopted to calculate the degradation attention weights to encode the dynamic degradation patterns<sup>[8]</sup>. The attention mechanism generates degradation attention weights according to the similarities between abstract feature components and the degradation stages. The overall structure of the attention mechanism is shown in Fig. 4.
 
-<img src="[C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20230203115608549.png](https://raw.githubusercontent.com/hilbert-qyw/Machine-Remaining-Useful-Life-Prediction-Using-Temporal-Deep-Degradation-Network/main/images/AM.png?token=GHSAT0AAAAAAB6EOLSC2V5YEDRZQKDFOBOEY66EA2A)" alt="image-20230203115608549" style="zoom:67%;" />
+<img src="https://raw.githubusercontent.com/hilbert-qyw/Machine-Remaining-Useful-Life-Prediction-Using-Temporal-Deep-Degradation-Network/main/images/AM.png?token=GHSAT0AAAAAAB6EOLSC2V5YEDRZQKDFOBOEY66EA2A" alt="image-20230203115608549" style="zoom:67%;" />
 
 <center>Fig. 4 . The illustration of the overall structure of attention mechanism<center>
 ## Requirements
